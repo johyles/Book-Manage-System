@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+        
+	<context:component-scan base-package="cn.smbms.controller"/>
+	
+	<mvc:annotation-driven>
+	 	<mvc:message-converters>
+	 		<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+	 			<property name="supportedMediaTypes">
+	 				<list>
+	 					<value>application/json;charset=UTF-8</value>
+	 				</list>
+	 			</property>
+	 		</bean> 
+	 		<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+	 			<property name="supportedMediaTypes">
+	 				<list>
+	 					<value>text/html;charset=UTF-8</value>
+	 					<value>application/json</value>
+	 				</list>
+	 			</property>
+	 			<property name="features">
+	 				<list>
+	 				 <!--   Date的日期转换器 -->
+					  <value>WriteDateUseDateFormat</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<!--如何引入静态资源文件-->
+	<mvc:resources location="/statics/" mapping="/statics/**"/>
+
+<!--	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/"/>
+		<property name="suffix" value=".jsp"/>
+
+	</bean>-->
+
+	<!-- 配置多视图解析器：允许同样的内容数据呈现不同的view -->
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="favorParameter" value="true"/>
+		<property name="defaultContentType" value="text/html"/>
+		<property name="mediaTypes">
+			<map>
+				<entry key="html" value="text/html;charset=UTF-8"/>
+				<entry key="json" value="application/json;charset=UTF-8"/>
+				<entry key="xml" value="application/xml;charset=UTF-8"/>
+			</map>
+		</property>
+		<property name="viewResolvers">
+			<list>
+				<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
+					<property name="prefix" value="/WEB-INF/jsp/"/>
+					<property name="suffix" value=".jsp"/>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<!--拦截器-->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<!--规定：拦截url是什么 所有以/sys/开头的路径-->
+			<mvc:mapping path="/sys/**"/>
+			<bean class="cn.smbms.interceptor.SysInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	<!-- 配置MultipartResolver，用于上传文件，使用spring的CommonsMultipartResolver -->  
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		 <property name="maxUploadSize" value="5000000"/>
+		 <property name="defaultEncoding" value="UTF-8"/>
+	</bean>
+
+
+</beans>   

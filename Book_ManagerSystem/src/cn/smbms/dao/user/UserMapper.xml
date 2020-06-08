@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.smbms.dao.user.UserMapper">
+
+
+        <!--根据用户名获得用户-->
+    <select id="getUserByUserCode" parameterType="string" resultType="User">
+       select * from smbms_user
+       <where>
+           <if test="userCode!=null and userCode!=''">
+               userCode=#{userCode}
+           </if>
+       </where>
+    </select>
+
+    <!--根据用户名和用户角色获得用户列表-->
+    <select id="getUserList" resultMap="rm_includeRoleName">
+        select u.*,r.roleName
+        from smbms_user u,smbms_role r
+        where u.userRole=r.id
+        <if test="userName!=null and userName!=''">
+            and u.userName like CONCAT('%',#{userName},'%')
+        </if>
+        <if test="userRole!=null and userRole!=''">
+            and u.userRole=#{userRole}
+        </if>
+
+    </select>
+
+    <resultMap id="rm_includeRoleName" type="User">
+        <result property="userRoleName" column="roleName"/>
+    </resultMap>
+
+
+    <!--获得角色列表-->
+    <select id="getRoleList" resultType="Role">
+        select * from smbms_role
+    </select>
+
+    <!--添加用户-->
+    <insert id="addUser" parameterType="User">
+        insert into smbms_user(userCode,userName,userPassword,gender,birthday,phone,address,userRole)
+         values(#{userCode},#{userName},#{userPassword},#{gender},#{birthday},#{phone},#{address},#{userRole})
+    </insert>
+
+</mapper>
