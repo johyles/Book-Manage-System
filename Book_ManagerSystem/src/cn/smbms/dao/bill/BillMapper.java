@@ -19,7 +19,8 @@ public interface BillMapper {
     //根据商品名称，供应商，是否付款获得订单
     public List<Bill> getBillList2(@Param("productName") String productName,
                                    @Param("providerId") Integer providerId,
-                                   @Param("isPayment") Integer isPayment);
+                                   @Param("isPayment") Integer isPayment,
+                                   @Param("uid")Integer uid);
 
     //获得供应商列表
     public List<Provider> getproviderNameList();

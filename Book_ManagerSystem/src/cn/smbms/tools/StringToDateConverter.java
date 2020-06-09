@@ -10,6 +10,12 @@ public class StringToDateConverter implements Converter<String, Date> {
 		System.out.println("StringToDateConverter convert ============== " + datePattern );
 		this.datePattern = datePattern;		
 	}
+	/**
+	* @Author: SkyCloud
+	* @Date: 2020/6/9
+	* @Param: [s]
+	* @return: java.util.Date
+	*/
 	@Override
 	public Date convert(String s) {
 		// TODO Auto-generated method stub

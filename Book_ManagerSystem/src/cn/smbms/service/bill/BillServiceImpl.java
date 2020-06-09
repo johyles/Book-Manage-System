@@ -26,8 +26,8 @@ public class BillServiceImpl implements BillService{
     }
 
     //根据商品名称，供应商，是否付款获得订单
-    public List<Bill> getBillList2(String productName, Integer providerId, Integer isPayment) {
-        return this.billMapper.getBillList2(productName,providerId,isPayment);
+    public List<Bill> getBillList2(String productName, Integer providerId, Integer isPayment,Integer uid) {
+        return this.billMapper.getBillList2(productName,providerId,isPayment,uid);
     }
 
     //获得供应商列表

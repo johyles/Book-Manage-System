@@ -19,6 +19,7 @@
         select b.*,p.proName
         from smbms_bill b,smbms_provider p
         where b.providerId=p.id
+        and b.createBy=#{uid}
         <if test="productName!=null and productName!=''">
             and b.productName like CONCAT('%',#{productName},'%')
         </if>
@@ -36,6 +37,7 @@
         select b.*,p.proName
         from smbms_bill b,smbms_provider p
         where b.providerId=p.id
+        and b.createdBy=#{uid}
         <if test="productName!=null and productName!=''">
             and b.productName like CONCAT('%',#{productName},'%')
         </if>

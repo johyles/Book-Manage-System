@@ -2,9 +2,7 @@ package cn.smbms.tools;
 
 import java.math.BigDecimal;
 
-/**
- * Created by user on 2015/7/6.
- */
+
 public class BigDecimalUtil {
 
     /**

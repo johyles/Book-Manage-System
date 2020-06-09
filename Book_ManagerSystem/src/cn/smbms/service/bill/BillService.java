@@ -18,7 +18,7 @@ public interface BillService {
     public List<Bill> getBillList(String productName, Integer providerId);
 
     //根据商品名称，供应商，是否付款获得订单
-    public List<Bill> getBillList2(String productName, Integer providerId, Integer isPayment);
+    public List<Bill> getBillList2(String productName, Integer providerId, Integer isPayment,Integer uid);
 
     //获得供应商列表
     public List<Provider> getproviderNameList();
