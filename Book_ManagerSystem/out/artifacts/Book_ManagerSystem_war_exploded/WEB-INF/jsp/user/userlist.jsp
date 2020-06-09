@@ -24,7 +24,7 @@
 				</c:if>
 			</select>
 
-			<input type="hidden" name="pageIndex" value="1"/>
+			<input type="hidden" name="pageIndex"/>
 			<input	value="查 询" type="submit" id="searchbutton">
 			<a href="${pageContext.request.contextPath}/sys/user/useradd.html" >添加用户</a>
 		</form>

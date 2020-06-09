@@ -27,4 +27,14 @@ public interface UserMapper {
                         @Param("phone") String phone,
                         @Param("address") String address,
                         @Param("userRole") Integer userRole);
+
+    //分页查询用户列表
+    public List<User> getUserList_page(@Param("userName")String userName,
+                                       @Param("userRole")Integer userRole,
+                                       @Param("from")int from,
+                                       @Param("pageSize")int pageSize);
+
+
+    //查询用户总记录数
+    public int getUserCount(@Param("userName")String userName, @Param("userRole")Integer userRole);
 }

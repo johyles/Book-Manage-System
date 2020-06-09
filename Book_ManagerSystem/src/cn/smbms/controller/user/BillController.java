@@ -19,7 +19,7 @@ public class BillController {
 
    @Autowired
    private BillService billService;
-
+   
     @RequestMapping(value = {"/bill.do"})
     public String getBillList(@RequestParam(value ="queryProductName",required = false) String queryProductName,
                               @RequestParam(value = "queryProviderId",required = false) Integer queryProviderId,

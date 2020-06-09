@@ -3,6 +3,7 @@ package cn.smbms.controller.user;
 import cn.smbms.pojo.User;
 import cn.smbms.service.user.UserService;
 import cn.smbms.tools.Constants;
+import cn.smbms.tools.PageSupport;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,8 +33,11 @@ public class UserController {
     @RequestMapping(value = {"/userlist.html","/user.do"})
     public String getUserList(@RequestParam(value ="queryname",required = false) String userName,
                               @RequestParam(value = "queryUserRole",required = false) Integer userRole,
-                              Model model){
-        List<User> userList = userService.getUserList(userName,userRole);
+                              Model model,
+                              @RequestParam(value = "pageIndex",required = false,defaultValue = "1") Integer currentPageNo){
+        //List<User> userList = userService.getUserList(userName,userRole);
+        List<User> userList = userService.getUserList_page(userName,userRole,currentPageNo);
+
         //放入model容器中，然后再返回页面中获取到
         model.addAttribute("userList",userList);
 
@@ -44,6 +48,22 @@ public class UserController {
         //用户名和用户角色添加到model
         model.addAttribute("queryUserName",userName);
         model.addAttribute("queryUserRole",userRole);
+
+        PageSupport pageSupport = new PageSupport();
+
+        //1-设置页容量
+        pageSupport.setPageSize(Constants.pageSize);
+
+        //2-设置用户总记录数
+        int totalCount=this.userService.getUserCount(userName,userRole);
+        pageSupport.setTotalCount(totalCount);
+
+        //3-设置总页数-上述2个set方法已经计算出来，不需要再人为地设置
+
+        //4-当前页码
+        pageSupport.setCurrentPageNo(currentPageNo);
+
+        model.addAttribute("pageSupport",pageSupport);
 
         return "user/userlist";
     }

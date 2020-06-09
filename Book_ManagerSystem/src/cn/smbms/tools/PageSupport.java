@@ -17,6 +17,7 @@ public class PageSupport {
 		return currentPageNo;
 	}
 
+	//设置当前页码
 	public void setCurrentPageNo(int currentPageNo) {
 		if(currentPageNo > 0){
 			this.currentPageNo = currentPageNo;
@@ -27,6 +28,7 @@ public class PageSupport {
 		return totalCount;
 	}
 
+	//总记录数
 	public void setTotalCount(int totalCount) {
 		if(totalCount > 0){
 			this.totalCount = totalCount;
@@ -38,6 +40,7 @@ public class PageSupport {
 		return pageSize;
 	}
 
+	//设置页容量
 	public void setPageSize(int pageSize) {
 		if(pageSize > 0){
 			this.pageSize = pageSize;
@@ -48,10 +51,11 @@ public class PageSupport {
 		return totalPageCount;
 	}
 
-	public void setTotalPageCount(int totalPageCount) {
+	/*public void setTotalPageCount(int totalPageCount) {
 		this.totalPageCount = totalPageCount;
-	}
-	
+	}*/
+
+	//计算总页数
 	public void setTotalPageCountByRs(){
 		if(this.totalCount % this.pageSize == 0){
 			this.totalPageCount = this.totalCount / this.pageSize;

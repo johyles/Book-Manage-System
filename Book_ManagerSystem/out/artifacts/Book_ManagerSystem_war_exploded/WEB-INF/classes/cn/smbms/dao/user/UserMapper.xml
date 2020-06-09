@@ -45,4 +45,30 @@
          values(#{userCode},#{userName},#{userPassword},#{gender},#{birthday},#{phone},#{address},#{userRole})
     </insert>
 
+    <!--分页查询用户-->
+    <select id="getUserList_page" resultMap="rm_includeRoleName">
+        select u.*,r.roleName
+        from smbms_user u,smbms_role r
+        where u.userRole=r.id
+        <if test="userName!=null and userName!=''">
+            and u.userName like CONCAT('%',#{userName},'%')
+        </if>
+        <if test="userRole!=null and userRole!=''">
+            and u.userRole=#{userRole}
+        </if>
+        limit #{from},#{pageSize}
+    </select>
+
+    <!--查询用户总记录数-->
+    <select id="getUserCount" resultType="int" >
+        select count(1)
+        from smbms_user
+        where 1=1
+        <if test="userName!=null and userName!=''">
+            and userName like CONCAT('%',#{userName},'%')
+        </if>
+        <if test="userRole!=null and userRole!=''">
+            and userRole=#{userRole}
+        </if>
+    </select>
 </mapper>
