@@ -3,7 +3,7 @@
     <div class="right">
         <img class="wColck" src="${pageContext.request.contextPath }/statics/images/clock.jpg" alt=""/>
         <div class="wFont">
-            <h2>${userSession.userName }</h2>
+            <h2>${userSession.uname }</h2>
             <p>欢迎来到哥谭市图书馆!</p>
         </div>
     </div>

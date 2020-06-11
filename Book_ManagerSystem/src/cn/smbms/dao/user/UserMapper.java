@@ -53,4 +53,11 @@ public interface UserMapper {
 
     //删除用户根据id
     public void deleteUser(@Param("uid")Integer uid);
+
+    //注册时添加用户
+    public int add(User user);
+
+    //更改用户密码
+    public int  updatePassword(User user);
+
 }

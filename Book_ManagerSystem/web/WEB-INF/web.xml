@@ -6,8 +6,9 @@
     <display-name>springMVC</display-name>
 
     <welcome-file-list>
-        <welcome-file>/WEB-INF/jsp/frame.jsp</welcome-file>
+<!--        <welcome-file>/WEB-INF/jsp/frame.jsp</welcome-file>-->
 <!--      <welcome-file>/WEB-INF/jsp/frame_user.jsp</welcome-file>-->
+        <welcome-file>/WEB-INF/jsp/login.jsp</welcome-file>
     </welcome-file-list>
 
     <context-param>

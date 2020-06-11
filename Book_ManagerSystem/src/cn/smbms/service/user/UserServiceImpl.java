@@ -25,6 +25,7 @@ public class UserServiceImpl implements UserService {
     //登陆
     public User login(String uname, String pwd) {
         User user = userMapper.getUserByUserCode(uname);
+
         if(user!=null && !user.getPwd().equals(pwd)){
             //当用户存在，但是密码不一致，赋值为null
             user=null;
@@ -81,6 +82,17 @@ public class UserServiceImpl implements UserService {
     //删除用户根据id
     public void deleteUser(Integer uid) {
         this.userMapper.deleteUser(uid);
+    }
+
+    //注册
+    public int add(User user) {
+        this.userMapper.add(user);
+        return  0;
+    }
+
+    public int update(User user) {
+        this.userMapper.updatePassword(user);
+        return 0;
     }
 
 

@@ -15,7 +15,7 @@
     <header class="publicHeader">
         <h1>图书管理系统</h1>
         <div class="publicHeaderR">
-            <p><span>下午好！</span><span style="color: #fff21b"> ${userSession.userName }</span> , 欢迎你！</p>
+            <p><span>下午好！</span><span style="color: #fff21b"> ${userSession.uname }</span> , 欢迎你！</p>
             <a href="${pageContext.request.contextPath }/sys/logout.html">退出</a>
         </div>
     </header>

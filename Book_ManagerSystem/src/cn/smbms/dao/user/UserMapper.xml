@@ -90,4 +90,15 @@
         where uid=#{uid}
     </delete>
 
+    <!--添加用户-->
+    <insert id="add" parameterType="User">
+          insert into user_info(uname,pwd)
+         values(#{uname},#{pwd})
+     </insert>
+
+    <!--修改当前用户的密码-@Param-->
+    <update id="updatePassword">
+        update user_info set pwd=#{pwd} where uname=#{uname}
+    </update>
+
 </mapper>

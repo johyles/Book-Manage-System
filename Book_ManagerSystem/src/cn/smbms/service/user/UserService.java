@@ -38,4 +38,10 @@ public interface UserService {
 
     //删除用户根据id
     public void deleteUser(Integer uid);
+
+    //注册
+    public int add(User user);
+
+    //更改用户密码
+    public int update(User user);
 }
