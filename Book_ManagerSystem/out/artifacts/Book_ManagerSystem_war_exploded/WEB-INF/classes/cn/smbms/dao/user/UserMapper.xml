@@ -4,71 +4,90 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.smbms.dao.user.UserMapper">
 
-
-        <!--根据用户名获得用户-->
+    <!--根据用户名获得用户-->
     <select id="getUserByUserCode" parameterType="string" resultType="User">
-       select * from smbms_user
-       <where>
-           <if test="userCode!=null and userCode!=''">
-               userCode=#{userCode}
-           </if>
-       </where>
+        select * from user_info
+        <where>
+            <if test="uname!=null and uname!=''">
+                uname=#{uname}
+            </if>
+        </where>
     </select>
 
-    <!--根据用户名和用户角色获得用户列表-->
-    <select id="getUserList" resultMap="rm_includeRoleName">
-        select u.*,r.roleName
-        from smbms_user u,smbms_role r
-        where u.userRole=r.id
-        <if test="userName!=null and userName!=''">
-            and u.userName like CONCAT('%',#{userName},'%')
+    <!--根据用户ID获得用户列表-->
+    <select id="getUserByUid" parameterType="int" resultType="User">
+        select * from user_info
+        <where>
+            <if test="uid!=null and uid!=0">
+                uid=#{uid}
+            </if>
+        </where>
+    </select>
+
+    <!--根据用户ID获得用户列表-->
+    <select id="getUserListByUid" parameterType="int" resultType="string">
+        select * from user_info
+        <where>
+            <if test="uid!=null and uid!=0">
+                uid=#{uid}
+            </if>
+        </where>
+    </select>
+
+    <!--根据管理员名获得用户列表-->
+    <select id="getUserList" resultType="String">
+        select * from user_info
+        where 1=1
+        <if test="uname!=null and uname!=''">
+            and uname like CONCAT('%',#{uname},'%')
         </if>
-        <if test="userRole!=null and userRole!=''">
-            and u.userRole=#{userRole}
-        </if>
-
     </select>
 
-    <resultMap id="rm_includeRoleName" type="User">
-        <result property="userRoleName" column="roleName"/>
-    </resultMap>
-
-
-    <!--获得角色列表-->
-    <select id="getRoleList" resultType="Role">
-        select * from smbms_role
-    </select>
 
     <!--添加用户-->
-    <insert id="addUser" parameterType="User">
-        insert into smbms_user(userCode,userName,userPassword,gender,birthday,phone,address,userRole)
-         values(#{userCode},#{userName},#{userPassword},#{gender},#{birthday},#{phone},#{address},#{userRole})
+    <insert id="addUser">
+        insert into user_info(uname,pwd,num,balance)
+         values(#{uname},#{pwd},#{num},#{balance})
     </insert>
 
     <!--分页查询用户-->
-    <select id="getUserList_page" resultMap="rm_includeRoleName">
-        select u.*,r.roleName
-        from smbms_user u,smbms_role r
-        where u.userRole=r.id
-        <if test="userName!=null and userName!=''">
-            and u.userName like CONCAT('%',#{userName},'%')
-        </if>
-        <if test="userRole!=null and userRole!=''">
-            and u.userRole=#{userRole}
+    <select id="getUserList_page" resultType="User">
+        select * from user_info
+        where 1=1
+        <if test="uname!=null and uname!=''">
+            and uname like CONCAT('%',#{uname},'%')
         </if>
         limit #{from},#{pageSize}
     </select>
 
     <!--查询用户总记录数-->
     <select id="getUserCount" resultType="int" >
-        select count(1)
-        from smbms_user
+        select count(1) from user_info
         where 1=1
-        <if test="userName!=null and userName!=''">
-            and userName like CONCAT('%',#{userName},'%')
-        </if>
-        <if test="userRole!=null and userRole!=''">
-            and userRole=#{userRole}
+        <if test="uname!=null and uname!=''">
+            and uname like CONCAT('%',#{uname},'%')
         </if>
     </select>
+
+    <!--修改用户信息-->
+    <update id="updateUser" parameterType="User">
+        update user_info
+        <trim prefix="set" suffix="where uid=#{uid}" suffixOverrides="," >
+            <if test="uname!=null and uname!=''">uname=#{uname},</if>
+            <if test="pwd!=null and pwd!=''">pwd=#{pwd},</if>
+            <if test="balance!=null and balance!=''">balance=#{balance},</if>
+        </trim>
+    </update>
+
+    <!--无条件获得用户列表-->
+    <select id="getUserListNone" resultType="User">
+        select * from user_info
+    </select>
+
+    <!--删除用户根据id-->
+    <delete id="deleteUser" parameterType="int">
+        delete from user_info
+        where uid=#{uid}
+    </delete>
+
 </mapper>

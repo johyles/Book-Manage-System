@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.smbms.dao.lend.lendMapper">
+    <!--通过用户编号查找借阅信息-->
+    <select id="findInfo" parameterType="Integer" resultType="Info">
+            select l.*,b.bname from  lend_info l,book_info b
+            where l.bid=b.bid
+                <if test="uid!=null">
+                    and uid=#{uid}
+                </if>
+                <if test="bid!=null">
+                    and l.bid=#{bid}
+                </if>
+
+
+    </select>
+    <!--查找分类列表-->
+    <select id="getclassList" resultType="Class">
+        select * from class_info
+    </select>
+    <!--根据书名查找书籍编号-->
+    <select id="findBidByBname" resultType="Integer">
+        select bid from book_info
+        <where>
+            <if test="bookName!=null and bookName!=''">
+                bname like CONCAT('%',#{bookName},'%')
+            </if>
+        </where>
+
+    </select>
+    <!---删借书记录-->
+    <delete id="returnBook" parameterType="Integer">
+        delete  from lend_info where uid=#{uid} and bid=#{bid}
+    </delete>
+    <!--查找书籍列表-->
+    <select id="findBook" resultType="Book">
+        select b.*,c.class_name from book_info b,class_info c
+        where b.class_id=c.class_id
+            <if test="bname!=null and bname!=''">
+               and bname like CONCAT('%',#{bname},'%')
+            </if>
+            <if test="class_id!=null">
+               and b.class_id=#{class_id}
+            </if>
+
+    </select>
+<!--借书-->
+    <select id="check" resultType="Integer">
+        select count(1) from lend_info where bid=#{bid} and uid=#{uid}
+    </select>
+    <insert id="addLend" >
+        insert into lend_info (uid,bid,lend_date,back_date) values (#{uid},#{bid},#{lend_date},#{back_date})
+    </insert>
+    <update id="updateBook" parameterType="Integer">
+        update book_info set number =#{number} where bid=#{bid}
+    </update>
+</mapper>

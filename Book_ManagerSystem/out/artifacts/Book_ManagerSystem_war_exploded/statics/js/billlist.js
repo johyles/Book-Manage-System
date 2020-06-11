@@ -1,6 +1,6 @@
 var billObj;
 
-//订单管理页面上点击删除按钮弹出删除框(billlist.jsp)
+//订单管理页面上点击删除按钮弹出删除框(booklist.jsp)
 function deleteBill(obj){
 	$.ajax({
 		type:"GET",

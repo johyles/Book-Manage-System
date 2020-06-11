@@ -13,17 +13,6 @@
 			<span>用户名：</span>
 			<input name="queryname" class="input-text"	type="text" value="${queryUserName }">
 
-			<span>用户角色：</span>
-			<select name="queryUserRole">
-				<c:if test="${roleList != null }">
-					<option value="0">--请选择--</option>
-					<c:forEach var="role" items="${roleList}">
-						<option <c:if test="${role.id == queryUserRole }">selected="selected"</c:if>
-								value="${role.id}">${role.roleName}</option>
-					</c:forEach>
-				</c:if>
-			</select>
-
 			<input type="hidden" name="pageIndex"/>
 			<input	value="查 询" type="submit" id="searchbutton">
 			<a href="${pageContext.request.contextPath}/sys/user/useradd.html" >添加用户</a>
@@ -34,51 +23,43 @@
 	<!--用户-->
 	<table class="providerTable" cellpadding="0" cellspacing="0">
 		<tr class="firstTr">
-			<th width="10%">用户编码</th>
+			<th width="10%">用户序号</th>
 			<th width="20%">用户名称</th>
-			<th width="10%">性别</th>
-			<th width="10%">年龄</th>
-			<th width="10%">电话</th>
-			<th width="10%">用户角色</th>
+			<th width="10%">用户密码</th>
+			<th width="10%">借阅书籍数量</th>
+			<th width="10%">余额</th>
 			<th width="30%">操作</th>
 		</tr>
 		<c:forEach var="user" items="${userList }" varStatus="status">
 			<tr>
 				<td>
-					<span>${user.userCode }</span>
+					<span>${user.uid }</span>
 				</td>
 				<td>
-					<span>${user.userName }</span>
+					<span>${user.uname }</span>
 				</td>
 				<td>
-							<span>
-								<c:if test="${user.gender==1}">男</c:if>
-								<c:if test="${user.gender==2}">女</c:if>
-							</span>
+					<span>${user.pwd }</span>
 				</td>
 				<td>
-					<%--<span>${user.birthday}</span>--%>
-					<%--<span><fmt:formatDate value="${user.birthday}" type="date" pattern="yyyy-MM-dd" /></span>--%>
-					<span>${user.age}</span>
+					<span>${user.num }</span>
 				</td>
 				<td>
-					<span>${user.phone}</span>
+					<span>${user.balance }</span>
 				</td>
-				<td>
-					<span>${user.userRoleName}</span>
-				</td>
+
 				<td>
 						<span>
 							<%--第一种方法--%>
 							<%--<a class="viewUser" href="${pageContext.request.contextPath }/sys/user/userview.html?uid=${user.id}"  userid=${user.id }  username=${user.userName }><img src="${pageContext.request.contextPath }/statics/images/read.png" alt="查看" title="查看"/></a></span>--%>
 								<%--第二种方法--%>
-							<a class="viewUser" href="${pageContext.request.contextPath }/sys/user/userview.html/${user.id}"  userid=${user.id }  username=${user.userName }><img src="${pageContext.request.contextPath }/statics/images/read.png" alt="查看" title="查看"/></a></span>
+							<a class="viewUser" href="${pageContext.request.contextPath }/sys/user/userview.html?uid=${user.uid}" uname=${user.uname }><img src="${pageContext.request.contextPath }/statics/images/read.png" alt="查看" title="查看"/></a></span>
 						<%--第三种方法:通过js文件实现，出错，原因未知--%>
 						<%--<a class="viewUser"   userid=${user.id }  username=${user.userName }><img src="${pageContext.request.contextPath }/statics/images/read.png" alt="查看" title="查看"/></a></span>--%>
 					<span>
-							<a class="modifyUser" href="${pageContext.request.contextPath }/sys/user/usermodify.html?uid=${user.id}" userid=${user.id } username=${user.userName }><img src="${pageContext.request.contextPath }/statics/images/xiugai.png" alt="修改" title="修改"/></a></span>
+							<a class="modifyUser" href="${pageContext.request.contextPath }/sys/user/usermodify.html?uid=${user.uid}" uname=${user.uname }><img src="${pageContext.request.contextPath }/statics/images/xiugai.png" alt="修改" title="修改"/></a></span>
 					<span>
-							<a class="deleteUser" href="${pageContext.request.contextPath }/sys/user/userdelete.html?uid=${user.id}" userid=${user.id } username=${user.userName }><img src="${pageContext.request.contextPath }/statics/images/schu.png" alt="删除" title="删除"/></a></span>
+							<a class="deleteUser" href="${pageContext.request.contextPath }/sys/user/userdelete.html?uid=${user.uid}" uname=${user.uname }><img src="${pageContext.request.contextPath }/statics/images/schu.png" alt="删除" title="删除"/></a></span>
 				</td>
 			</tr>
 		</c:forEach>

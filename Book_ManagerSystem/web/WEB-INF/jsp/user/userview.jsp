@@ -7,23 +7,17 @@
             <span>用户管理页面 >> 用户信息查看页面</span>
         </div>
         <div class="providerView">
-            <p><strong>用户编号：</strong><span>${user.userCode }</span></p>
-            <p><strong>用户名称：</strong><span>${user.userName }</span></p>
-            <p><strong>用户性别：</strong>
-            	<span>
-            		<c:if test="${user.gender == 1 }">男</c:if>
-					<c:if test="${user.gender == 2 }">女</c:if>
-				</span>
-			</p>
-            <p><strong>出生日期：</strong><span>${user.birthday }</span></p>
-            <p><strong>用户电话：</strong><span>${user.phone }</span></p>
-            <p><strong>用户地址：</strong><span>${user.address }</span></p>
-            <p><strong>用户角色：</strong><span>${user.userRoleName}</span></p>
-			<div class="providerAddBtn">
-            	<input type="button" id="back" name="back" value="返回" >
-            </div>
+            <p><strong>用户编号：</strong><span>${user.uid }</span></p>
+            <p><strong>用户名称：</strong><span>${user.uname }</span></p>
+            <p><strong>密码：</strong><span>${user.pwd }</span></p>
+            <p><strong>已借阅书籍：</strong><span>${user.num }</span></p>
+            <p><strong>余额：</strong><span>${user.balance }</span></p>
         </div>
-    </div>
+     <div class="providerAddBtn">
+         <input type="button" id="back" name="back" onclick="javascript:window.history.back()" value="返回" >
+     </div>
+</div>
+
 </section>
 <%@include file="/WEB-INF/jsp/common/foot.jsp" %>
 <script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/userview.js"></script>

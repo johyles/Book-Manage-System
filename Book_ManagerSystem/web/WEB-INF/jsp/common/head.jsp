@@ -6,14 +6,14 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>超市订单管理系统</title>
+    <title>图书管理系统</title>
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/statics/css/style.css" />
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/statics/css/public.css" />
 </head>
 <body>
 <!--头部-->
     <header class="publicHeader">
-        <h1>超市订单管理系统</h1>
+        <h1>图书管理系统</h1>
         <div class="publicHeaderR">
             <p><span>下午好！</span><span style="color: #fff21b"> ${userSession.userName }</span> , 欢迎你！</p>
             <a href="${pageContext.request.contextPath }/sys/logout.html">退出</a>
@@ -30,10 +30,8 @@
          <h2 class="leftH2"><span class="span1"></span>功能列表 <span></span></h2>
          <nav>
              <ul class="list">
-                 <li><a href="${pageContext.request.contextPath }/sys/bill/bill.do">订单管理</a></li>
-              <li><a href="${pageContext.request.contextPath }/jsp/provider.do?method=query">供应商管理</a></li>
+                 <li><a href="${pageContext.request.contextPath }/sys/book/book.do">馆藏管理</a></li>
               <li><a href="${pageContext.request.contextPath }/sys/user/userlist.html">用户管理</a></li>
-              <li><a href="${pageContext.request.contextPath }/jsp/pwdmodify.jsp">密码修改</a></li>
               <li><a href="${pageContext.request.contextPath }/sys/user/logout.html">退出系统</a></li>
              </ul>
          </nav>

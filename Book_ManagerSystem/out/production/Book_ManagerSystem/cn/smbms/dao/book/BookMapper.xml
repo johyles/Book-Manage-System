@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.smbms.dao.book.BookMapper">
+
+    <!--根据书籍名称和书籍种类动态查询图书列表-->
+    <select id="getBookList"  resultMap="rm_includeClassName">
+        select b.*,cc.class_name
+        from book_info b,class_info cc
+        where b.class_id = cc.class_id
+        <if test="bookName !=null and bookName != ''">
+            and b.bname like CONCAT('%',#{bookName},'%')
+        </if>
+        <if test="bookClass !=null and bookClass != ''">
+            and b.class_id = #{bookClass}
+        </if>
+        limit #{from},#{pagesize}
+    </select>
+    <resultMap id="rm_includeClassName" type="Book">
+        <result property="bookClassName" column="class_name"/>
+    </resultMap>
+
+
+
+    <select id="getClassList" resultType="Class">
+        select * from class_info
+    </select>
+
+    <select id="getBookCount" resultType="int">
+        select count(1) from book_info
+        where 1=1
+        <if test="bookName!=null and bookName!=''">
+            and bname like CONCAT('%',#{bookName},'%')
+        </if>
+        <if test="bookClass!=null and bookClass!=''">
+            and class_id=#{bookClass}
+        </if>
+    </select>
+
+    <!--//实现书籍的增加操作-->
+    <insert id="addBook" parameterType="Book">
+        insert into book_info(bname,ISBN,price,class_id,number,info,author,publish)
+        values(#{bname},#{ISBN},#{price},#{class_id},#{number},#{info},#{author},#{publish})
+    </insert>
+
+    <select id="getBookByBookId" resultType="Book">
+        select * from book_info
+        where bid=#{bid}
+    </select>
+
+    <!--动态sql(trim+if):修改书籍信息-->
+    <update id="modifyBook" parameterType="Book">
+        update book_info
+
+        <trim prefix="set" suffix="where bid = #{bid}" suffixOverrides=",">
+            <if test="bname != null and bname !=''">bname=#{bname},</if>
+            <if test="ISBN != null and ISBN !=''">ISBN=#{ISBN},</if>
+            <if test="price != null and price !=''">price=#{price},</if>
+            <if test="class_id != null and class_id !=''">class_id=#{class_id},</if>
+            <if test="number != null and number !=''">number=#{number},</if>
+            <if test="info != null and info !=''">info=#{info},</if>
+            <if test="author != null and author !=''">author=#{author},</if>
+            <if test="publish != null and publish !=''">publish=#{publish},</if>
+        </trim>
+
+    </update>
+
+    <delete id="deleteBook" parameterType="Integer" >
+        delete from book_info where bid = #{bid}
+    </delete>
+
+
+</mapper>
