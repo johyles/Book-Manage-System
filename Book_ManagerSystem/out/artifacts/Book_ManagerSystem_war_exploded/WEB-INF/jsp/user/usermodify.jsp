@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/jsp/common/head.jsp"%>
+<%@ page import="cn.smbms.tools.MD5Util" %>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
     <div class="right">
         <div class="location">
             <strong>你现在所在的位置是:</strong>
@@ -35,5 +38,14 @@
         </div>
     </div>
 </section>
+<script>
+    document.getElementById("save").onclick=function(){
+        var form = document.getElementById("userForm");
+        var password = document.getElementById("pwd");
+        password.value =md5(password.value);
+        console.log(password.value);
+        form.submit();
+    }
+</script>
 <%@include file="/WEB-INF/jsp/common/foot.jsp" %>
 <%--<script type="text/javascript" src="${pageContext.request.contextPath }/statics/js/usermodify.js"></script>--%>
