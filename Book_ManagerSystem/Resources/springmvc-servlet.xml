@@ -71,13 +71,13 @@
 	</bean>
 
 	<!--拦截器-->
-	<!--<mvc:interceptors>
+	<mvc:interceptors>
 		<mvc:interceptor>
-			&lt;!&ndash;规定：拦截url是什么 所有以/sys/开头的路径&ndash;&gt;
+			<!--规定：拦截url是什么 所有以/sys/开头的路径-->
 			<mvc:mapping path="/sys/**"/>
 			<bean class="cn.smbms.interceptor.SysInterceptor"/>
 		</mvc:interceptor>
-	</mvc:interceptors>-->
+	</mvc:interceptors>
 	
 	<!-- 配置MultipartResolver，用于上传文件，使用spring的CommonsMultipartResolver -->  
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

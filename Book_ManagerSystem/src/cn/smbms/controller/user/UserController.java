@@ -166,7 +166,10 @@ public class UserController {
             //return "user/usermodify";
             response.getWriter().write("<script>; " +
                     "window.location='usermodify.html'; window.close();</script>");
-        }else{
+        }else if(userService.getUserList(uname).size()==1) {
+            out.print("<script>alert('用户名已存在!');</script>");
+            out.flush();
+        } else{
             userService.updateUser(uid,uname,pwd,balance);
             out.flush();
             out.println("<script>");

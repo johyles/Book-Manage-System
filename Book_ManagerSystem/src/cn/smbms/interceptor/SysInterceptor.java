@@ -1,5 +1,6 @@
 package cn.smbms.interceptor;
 
+import cn.smbms.pojo.Admin;
 import cn.smbms.pojo.User;
 import cn.smbms.tools.Constants;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -19,7 +20,8 @@ public class SysInterceptor  extends HandlerInterceptorAdapter {
         //对url进行拦截,身份验证
         HttpSession session = request.getSession();
         User loginUser = (User) session.getAttribute(Constants.USER_SESSION);
-        if(loginUser!=null){//登陆用户存在
+        Admin loginAdmin = (Admin) session.getAttribute(Constants.ADMAIN_SESSION);
+        if(loginUser!=null||loginAdmin!=null){//登陆用户存在
             //表示放行
             return true;
         }else {//登陆用户不存在
